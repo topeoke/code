@@ -14,11 +14,13 @@ class Asset:
 
 @attr.s
 class Portfolio(object):
-    porfolio_id: int = attr.ib()
+    id: int = attr.ib()
     holdings: set() = attr.ib()
     total: float = attr.ib()
     date_created: Optional[date] = attr.ib()
     date_updated: Optional[date] = attr.ib()
+
+
 
 
 
