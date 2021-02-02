@@ -37,12 +37,12 @@ def test_portfolio_total():
 def test_asset_holding_is_valid():
     test_asset = create_asset()
     new_asset = Asset(ticker = "abc", name="abc", qty = 20, price = 10.34)
-    holding = Holdings()
-    assert holding.isAssetValid(new_asset) == True
+    holding = Holdings(test_asset)
+    assert holding.isAssetValid() == True
 
 
 def test_asset_holding_allocation():
     test_asset  = create_asset()
-    holding = Holdings().assetHoldings(test_asset)
-    assert holding[0].ticker == 'abc'
+    holding = Holdings(test_asset)
+    assert holding.assetHoldings == test_asset
  

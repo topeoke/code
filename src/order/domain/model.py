@@ -1,10 +1,10 @@
 from __future__ import annotations
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import List, Optional
 from datetime import date
 
 
-@dataclass(frozen=True)
+@dataclass
 class Asset:
     ticker: str
     name: str
@@ -12,23 +12,25 @@ class Asset:
     price: float
     currency: str = "GBP"
     asset_type: str = "Equity"
+    total: float = 0.00
+
 
 class Holdings:
     def __init__(
-        self
+        self, asset_entry: Asset
     ):
+        self.asset_entry = asset_entry
         self._holdings = set()
 
-    def isAssetValid(self, asset_entry: Asset) -> bool:
-        return asset_entry.qty > 0 and asset_entry.price > 0
+    def isAssetValid(self) -> bool:
+        return self.asset_entry.qty > 0 and self.asset_entry.price > 0
     
-    def assetHoldings(self, asset_entry: Asset):
-        if self.isAssetValid(asset_entry):
-            return self._holdings.add(asset_entry)
-
     @property
-    def test(self):
-        return self._holdings
+    def assetHoldings(self):
+        if self.isAssetValid():
+            self.asset_entry.total = self.asset_entry.qty * self.asset_entry.price
+            return self.asset_entry
+            
 
 class Portfolio:
     def __init__(
