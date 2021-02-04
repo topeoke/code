@@ -15,7 +15,7 @@ class Asset:
     total: float = 0.00
 
 
-class Holdings:
+class Holding:
     def __init__(
         self, asset_entry: Asset
     ):
@@ -30,11 +30,11 @@ class Holdings:
         if self.isAssetValid():
             self.asset_entry.total = self.asset_entry.qty * self.asset_entry.price
             return self.asset_entry
-            
+
 
 class Portfolio:
     def __init__(
-        self, id: str, holdings: List[Asset], date_created: Optional[date], date_updated: Optional[date] ,
+        self, id: str, holdings: List[Holding], date_created: Optional[date], date_updated: Optional[date] ,
         total=  0.0):
         self.id = id
         self.holdings = holdings
@@ -47,7 +47,23 @@ class Portfolio:
 
     @property
     def total(self) -> float:
-        return sum(asset.qty * asset.price for asset in self.holdings)
+        return sum(asset.total for asset in self.holdings)
+
+
+def create_portforlio(ref: str, holdings: List[Holding]):
+    return Portfolio(ref,holdings)
+
+def add_portfolio_holding(ref: str, holding: Holding, existing_portfolio: Portfolio):
+    if ref == existing_portfolio.id:
+        return existing_portfolio.holdings.append[holding]
+    else:
+        return create_portforlio(ref, holding)
+
+def delete_portfolio_holding(ref: str, holding: Holding, existing_portfolio: Portfolio):
+    if ref == existing_portfolio.id:
+        return existing_portfolio.holdings.remove[holding]
+
+
 
 
 
