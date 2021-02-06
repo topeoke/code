@@ -14,7 +14,6 @@ class Asset:
     asset_type: str = "Equity"
     total: float = 0.00
 
-
 class Holding:
     def __init__(
         self, asset_entry: Asset
@@ -31,7 +30,6 @@ class Holding:
             self.asset_entry.total = self.asset_entry.qty * self.asset_entry.price
             return self.asset_entry
 
-
 class Portfolio:
     def __init__(
         self, id: str, holdings: List[Holding], date_created: Optional[date], date_updated: Optional[date] ,
@@ -41,7 +39,6 @@ class Portfolio:
         self.date_created = date_created
         self.date_updated = date_updated
 
-
     def __repr__(self):
         return self.id
 
@@ -50,8 +47,8 @@ class Portfolio:
         return sum(asset.total for asset in self.holdings)
 
 
-def create_portforlio(ref: str, holdings: List[Holding]):
-    return Portfolio(ref,holdings)
+def create_portfolio(ref: str, holdings: List[Holding]):
+    return Portfolio(ref,holdings,date,date)
 
 def add_portfolio_holding(ref: str, holding: Holding, existing_portfolio: Portfolio):
     if ref == existing_portfolio.id:
