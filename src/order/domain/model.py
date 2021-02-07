@@ -62,6 +62,13 @@ def delete_portfolio_holding(ref: str, holding: Holding, existing_portfolio: Lis
             _portfolio.holdings.remove(holding)
             return _portfolio
 
+def add_portfolio_asset(ref: str, add_asset: Asset, existing_portfolio: List[Portfolio]):
+    for _portfolio in existing_portfolio:
+        if ref == _portfolio.id:
+            for _asset in _portfolio.holdings:
+                if _asset.ticker == add_asset.ticker:
+                    _asset.qty += add_asset.qty
+                    return _portfolio
 
 
 

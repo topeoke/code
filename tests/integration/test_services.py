@@ -3,6 +3,7 @@ import sys
 sys.path.insert(0, '/Users/temi/cosmic-code/code/src')
 from order.domain.model import Asset, Portfolio, Holding
 from order.services import create_portfolio, retrieve_portfolio, add_holding_to_portfolio, delete_portfolio_holding
+from order.services import add_portfolio_asset
 from order.repository import FakeRepository
 from datetime import date, time
 
@@ -44,6 +45,11 @@ def test_delete_portfolio_holding():
     delete_asset = Asset(ticker = "cde", name="cde", qty = 500, price = 56.34)
     delete_holding = Holding(delete_asset).assetHoldings
     res =  delete_portfolio_holding('234', delete_holding, repo)
-    print(res.holdings)
     assert res.holdings == all_holdings
 
+def test_update_portfolio_asset():
+    all_holdings = create_holdings()
+    repo = FakeRepository([Portfolio('234',all_holdings, date, date)])
+    add_asset = Asset(ticker = "cde", name="cde", qty = 700, price = 56.34)
+    port_asset_add = add_portfolio_asset('234', add_asset, repo)
+    assert port_asset_add.holdings == all_holdings

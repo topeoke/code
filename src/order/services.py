@@ -33,3 +33,8 @@ def delete_portfolio_holding(reference: str, delete_holding: model.Holding, repo
     repo.commit()
     return updated_portfolio 
 
+def add_portfolio_asset(reference, asset: model.Asset, repo: AbstractRepository):
+    all_portfolio = repo.list()
+    updated_portfolio = model.add_portfolio_asset(reference, asset, all_portfolio)
+    repo.commit()
+    return updated_portfolio
