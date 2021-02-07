@@ -2,7 +2,7 @@ import pytest
 import sys
 sys.path.insert(0, '/Users/temi/cosmic-code/code/src')
 from order.domain.model import Asset, Portfolio, Holding
-from order.services import create_portfolio, retrieve_portfolio, add_holding_to_portfolio
+from order.services import create_portfolio, retrieve_portfolio, add_holding_to_portfolio, delete_portfolio_holding
 from order.repository import FakeRepository
 from datetime import date, time
 
@@ -36,4 +36,14 @@ def test_add_holding_to_portfolio_service():
     new_asset_4 = Asset(ticker = "xyz", name="xyz plc", qty = 1500, price = 156.34)
     new_holding = Holding(new_asset_4).assetHoldings
     res = add_holding_to_portfolio('234', new_holding, repo)
-    assert res.holdings == all_holdings, all_holdings.total
+    assert res.holdings == all_holdings
+
+def test_delete_portfolio_holding():
+    all_holdings = create_holdings()
+    repo = FakeRepository([Portfolio('234',all_holdings, date, date)])
+    delete_asset = Asset(ticker = "cde", name="cde", qty = 500, price = 56.34)
+    delete_holding = Holding(delete_asset).assetHoldings
+    res =  delete_portfolio_holding('234', delete_holding, repo)
+    print(res.holdings)
+    assert res.holdings == all_holdings
+

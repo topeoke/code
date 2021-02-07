@@ -59,7 +59,8 @@ def add_portfolio_holding(ref: str, holding: Holding, existing_portfolio: List[P
 def delete_portfolio_holding(ref: str, holding: Holding, existing_portfolio: List[Portfolio]):
     for _portfolio in existing_portfolio:
         if ref == _portfolio.id:
-            return existing_portfolio.holdings.remove[holding]
+            _portfolio.holdings.remove(holding)
+            return _portfolio
 
 
 
