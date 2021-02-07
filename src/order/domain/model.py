@@ -50,15 +50,16 @@ class Portfolio:
 def create_portfolio(ref: str, holdings: List[Holding]):
     return Portfolio(ref,holdings,date,date)
 
-def add_portfolio_holding(ref: str, holding: Holding, existing_portfolio: Portfolio):
-    if ref == existing_portfolio.id:
-        return existing_portfolio.holdings.append[holding]
-    else:
-        return create_portforlio(ref, holding)
+def add_portfolio_holding(ref: str, holding: Holding, existing_portfolio: List[Portfolio]):
+    for _portfolio in existing_portfolio:
+        if ref in _portfolio.id:
+            _portfolio.holdings.append(holding)
+            return _portfolio
 
-def delete_portfolio_holding(ref: str, holding: Holding, existing_portfolio: Portfolio):
-    if ref == existing_portfolio.id:
-        return existing_portfolio.holdings.remove[holding]
+def delete_portfolio_holding(ref: str, holding: Holding, existing_portfolio: List[Portfolio]):
+    for _portfolio in existing_portfolio:
+        if ref == _portfolio.id:
+            return existing_portfolio.holdings.remove[holding]
 
 
 

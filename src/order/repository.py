@@ -27,6 +27,11 @@ class FakeRepository(AbstractRepository):
         if port.id not in ref_list:
             self.portfolio.append(port)
             return port.id
+    
+    def list(self):
+        return self.portfolio
+
+
     def commit(self):
         print ('Saving to database....')
     
