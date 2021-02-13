@@ -31,7 +31,6 @@ class FakeRepository(AbstractRepository):
     def list(self):
         return self.portfolio
 
-
     def commit(self):
         print ('Saving to database....')
     
